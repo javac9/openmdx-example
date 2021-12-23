@@ -52,6 +52,7 @@ buildscript {
         jcenter()
         maven {
             url = uri("https://www.openmdx.org/repos/releases")
+            url = uri("https://www.opencrx.org/repos/releases")
         }
     }
 }

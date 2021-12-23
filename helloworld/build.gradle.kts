@@ -94,11 +94,13 @@ project.getConfigurations().maybeCreate("openmdxBootstrap")
 project.getConfigurations().maybeCreate("openmdxBaseModels")
 project.getConfigurations().maybeCreate("openmdxSecurityModels")
 project.getConfigurations().maybeCreate("openmdxPortalModels")
+project.getConfigurations().maybeCreate("opencrxCoreModels")
 project.getConfigurations().maybeCreate("tools")
 val openmdxBootstrap by configurations
 val openmdxBaseModels by configurations
 val openmdxSecurityModels by configurations
 val openmdxPortalModels by configurations
+val opencrxCoreModels by configurations
 val tools by configurations
 
 dependencies {
@@ -116,6 +118,8 @@ dependencies {
     openmdxSecurityModels("org.openmdx:openmdx-security-models:2.17.+")
     // openmdxPortalModels
     openmdxPortalModels("org.openmdx:openmdx-portal-models:2.17.+")
+    // opencrxCoreModels
+    opencrxCoreModels("org.opencrx:opencrx-core-models:5.2.+")
     // tools
 	tools(files("$buildDir/classes/java/main"))
 	tools(files("$buildDir/resources/main"))
@@ -185,6 +189,10 @@ tasks.register<org.openmdx.gradle.GenerateModelsTask>("generate-model") {
         project.copy {
             from(project.zipTree(project.getConfigurations().getByName("openmdxPortalModels").singleFile))
             into(File(project.getBuildDir(), "generated/sources/model/openmdx/portal"))
+        }
+        project.copy {
+            from(project.zipTree(project.getConfigurations().getByName("opencrxCoreModels").singleFile))
+            into(File(project.getBuildDir(), "generated/sources/model/opencrx/core"))
         }
     }
     doLast {
